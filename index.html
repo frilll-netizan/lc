@@ -35,22 +35,21 @@
   </style>
 </head>
 <body>
-<audio id="music" autoplay loop>
-<audio id="musik" autoplay loop muted>
+<!-- Musik autoplay -->
+<audio id="musik" autoplay loop muted style="display:none;">
     <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 const audio = document.getElementById("musik");
 
-// Autoplay start (muted agar tidak diblokir)
+// Coba play langsung (Android Chrome blokir autoplay suara)
 audio.play().then(() => {
     setTimeout(() => {
-        audio.muted = false;   // buka suara setelah berhasil play
-        audio.volume = 1;
+        audio.muted = false; // buka mute setelah play
     }, 500);
 }).catch(() => {
-    // Jika masih diblokir, play setelah user klik layar
+    // Jika gagal autoplay → tunggu user klik layar
     document.addEventListener("click", () => {
         audio.muted = false;
         audio.play();
