@@ -36,18 +36,26 @@
 </head>
 <body>
 <audio id="music" autoplay loop>
-  <source src="music.mp3" type="audio/mpeg">
+<audio id="musik" autoplay loop muted>
+    <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
-  // Coba autoplay (beberapa browser langsung jalan)
-  const audio = document.getElementById("musik");
-  audio.play().catch(() => {
-    // Kalau diblokir, nanti play setelah user klik layar
+const audio = document.getElementById("musik");
+
+// Autoplay start (muted agar tidak diblokir)
+audio.play().then(() => {
+    setTimeout(() => {
+        audio.muted = false;   // buka suara setelah berhasil play
+        audio.volume = 1;
+    }, 500);
+}).catch(() => {
+    // Jika masih diblokir, play setelah user klik layar
     document.addEventListener("click", () => {
-      audio.play();
+        audio.muted = false;
+        audio.play();
     }, { once: true });
-  });
+});
 </script>
 
   <div class="container">
